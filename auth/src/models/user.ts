@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Password } from '../utilities/password';
 
 // An interface that describes the properties
 // that are required to create a new user
@@ -30,6 +31,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+userSchema.pre('save', async function (done) {
+  /**
+   * If the password is not being set/modified
+   * We will not run this
+   * The user might be updating other fields
+   * And we dont want to rehash their password in that event
+   */
+  if (!this.isModified('password')) {
+    return done();
+  }
+  const hashedPassword = Password.toHash(this.password);
+  this.set('password', hashedPassword);
+  done();
 });
 
 // This is what we will create new users with
