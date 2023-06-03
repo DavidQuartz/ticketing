@@ -35,6 +35,11 @@ app.use(GlobalErrorHandler);
 
 // Database and server startup
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    // make sure this secret exists
+    throw new Error('JWT_KEY must be defined');
+  }
+
   try {
     // run kubectl port-forward svc/auth-mongo-srv 27017:27017 to forward port for local GUI
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
