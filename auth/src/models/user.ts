@@ -42,7 +42,6 @@ userSchema.pre('save', async function (done) {
    */
   if (this.isModified('password')) {
     const hashedPassword = await Password.toHash(this.get('password'));
-    console.log('hashed password', hashedPassword);
     this.set('password', hashedPassword);
   }
   done();
