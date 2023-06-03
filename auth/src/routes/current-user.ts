@@ -1,9 +1,18 @@
-import express, {Request, Response} from 'express'
+import express, { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 
-const router = express.Router()
+import { currentUser } from '../middlewares/current-user';
 
-router.get('/api/users/currentuser', (req: Request, res: Response) => {
-    res.send('Hi There!')
-})
+const router = express.Router();
 
-export {router as currentuserRouter}
+router.get(
+  '/api/users/currentuser',
+  currentUser,
+  (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).json({
+      currentUser: req.currentUser || null,
+    });
+  }
+);
+
+export { router as currentuserRouter };
