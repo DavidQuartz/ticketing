@@ -1,15 +1,24 @@
 import express from 'express';
 import { json } from 'body-parser';
+import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
+
 import { currentuserRouter } from './routes/current-user';
 import { signupRouter } from './routes/signup';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { errorHandler as GlobalErrorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-errors';
-import mongoose from 'mongoose';
 
 const app = express();
+app.set('trust proxy', true);
 app.use(json());
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 
 app.use(currentuserRouter);
 app.use(signupRouter);
@@ -27,6 +36,7 @@ app.use(GlobalErrorHandler);
 // Database and server startup
 const start = async () => {
   try {
+    // run kubectl port-forward svc/auth-mongo-srv 27017:27017 to forward port for local GUI
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
     console.log('MongoDb Connection Successful');
   } catch (error) {

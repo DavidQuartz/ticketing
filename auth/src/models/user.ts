@@ -40,11 +40,11 @@ userSchema.pre('save', async function (done) {
    * The user might be updating other fields
    * And we dont want to rehash their password in that event
    */
-  if (!this.isModified('password')) {
-    return done();
+  if (this.isModified('password')) {
+    const hashedPassword = await Password.toHash(this.get('password'));
+    console.log('hashed password', hashedPassword);
+    this.set('password', hashedPassword);
   }
-  const hashedPassword = Password.toHash(this.password);
-  this.set('password', hashedPassword);
   done();
 });
 
