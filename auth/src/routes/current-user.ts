@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
 
-import { currentUser } from '../middlewares/current-user';
+import { currentUser } from '@nantoo/tickets';
 
 const router = express.Router();
 

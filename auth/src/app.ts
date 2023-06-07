@@ -6,8 +6,10 @@ import { currentuserRouter } from './routes/current-user';
 import { signupRouter } from './routes/signup';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
-import { errorHandler as GlobalErrorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-errors';
+import {
+  errorHandler as GlobalErrorHandler,
+  NotFoundError,
+} from '@nantoo/tickets';
 
 const app = express();
 app.set('trust proxy', true);
