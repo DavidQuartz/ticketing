@@ -10,9 +10,8 @@ const start = async () => {
   if (!process.env.MONGO_URI) {
     throw new Error('MONGO_URI must be defined');
   }
-
   try {
-    // run kubectl port-forward svc/auth-mongo-srv 27017:27017 to forward port for local GUI
+    // run kubectl port-forward svc/tickets-mongo-srv 27017:27017 to forward port for local GUI
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDb Connection Successful');
   } catch (error) {
