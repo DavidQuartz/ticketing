@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
+    timestamps: true,
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
@@ -60,7 +61,7 @@ userSchema.pre('save', async function (done) {
 });
 
 // This is what we will create new users with
-// this will provide type checking for user model
+// this is only because this is we can achieve type checking for user model
 userSchema.statics.build = (attributes: UserAttributes) => {
   return new User(attributes);
 };
