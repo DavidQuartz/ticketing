@@ -16,11 +16,15 @@ export default ({ url, method, body, onSuccess }) => {
       setErrors(
         <div className="alert alert-danger">
           <ul className="my-0">
-            {err.response.data.errors.map((error, id) => (
-              <li className="list" key={id}>
-                {error.message}
-              </li>
-            ))}
+            {err.response.data.errors ? (
+              err.response.data.errors.map((error, id) => (
+                <li className="list" key={id}>
+                  {error.message}
+                </li>
+              ))
+            ) : (
+              <li className="list">{err.message}</li>
+            )}
           </ul>
         </div>
       );

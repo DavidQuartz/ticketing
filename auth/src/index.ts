@@ -14,6 +14,11 @@ const start = async () => {
   try {
     // run kubectl port-forward svc/auth-mongo-srv 27017:27017 to forward port for local GUI
     await mongoose.connect(process.env.MONGO_URI);
+
+    mongoose.connection.on('error', (err) => {
+      console.error('MongoDB connection error: ' + err);
+      process.exit(-1);
+    });
     console.log('MongoDb Connection Successful');
   } catch (error) {
     console.error(error);
