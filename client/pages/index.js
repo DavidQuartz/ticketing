@@ -10,7 +10,15 @@ const LandingPage = ({ currentUser }) => {
 
 LandingPage.getInitialProps = async (context) => {
   const client = buildClient(context);
-  const { data } = await client.get('/api/users/currentuser');
+
+  let data = {};
+  try {
+    const response = await client.get('/api/users/currentuser');
+    data = response.data;
+  } catch (error) {
+    console.error('Error fetching current user', error.message);
+    // Add more robust error handling here if needed
+  }
   return data;
 };
 
