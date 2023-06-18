@@ -9,6 +9,7 @@ import {
 } from '@nantoo/tickets';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
+import { ticketIndexingRouter } from './routes/ticket-indexing';
 
 const app = express();
 app.set('trust proxy', true);
@@ -24,6 +25,7 @@ app.use(
 app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(ticketIndexingRouter);
 
 // this will catch routes we have not defined
 app.all('*', async (req, res, next) => {
