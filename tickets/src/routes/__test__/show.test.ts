@@ -1,11 +1,10 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { signin } from '../../test/helper';
-import mongoose from 'mongoose';
+import { signin, generateObjectId } from '../../test/helper';
 
 describe('Show Tickets route', () => {
   it('returns a 404 if the ticket is not found', async () => {
-    const id = new mongoose.Types.ObjectId().toHexString(); // generate valid ObjectId
+    const id = generateObjectId(); // generate valid ObjectId
     await request(app).get(`/api/tickets/${id}`).send().expect(404);
   });
 

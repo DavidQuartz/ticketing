@@ -10,6 +10,7 @@ import {
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
 import { ticketIndexingRouter } from './routes/ticket-indexing';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 app.set('trust proxy', true);
@@ -26,6 +27,7 @@ app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(ticketIndexingRouter);
+app.use(updateTicketRouter);
 
 // this will catch routes we have not defined
 app.all('*', async (req, res, next) => {

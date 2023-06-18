@@ -1,12 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { signin } from '../../test/helper';
-
-const createTicket = () =>
-  request(app)
-    .post('/api/tickets')
-    .set('Cookie', signin())
-    .send({ title: 'Test', price: 20 });
+import { createTicket } from '../../test/helper';
 
 describe('Ticket indexing tests', () => {
   it('can fetch a list of tickets', async () => {
